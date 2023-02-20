@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Result;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
@@ -15,25 +17,53 @@ namespace Business.Concrete
         {
             _CarDal = carDal;
         }
-        public List<Car> GetAll()
+
+        public IResult Add(Car car)
         {
-            return _CarDal.GetAll();
+            if (car.CarName.Length<2)
+            {
+                return new ErrorResult(Messages.CarNameInvalid);
+            }
+            _CarDal.Add(car);
+            return new SuccessResult(Messages.CarAdded);
         }
 
-        public Car GetAllByBrandId(int id)
+        public IDataResult<List<Car>> GetAll()
         {
-             return _CarDal.Get(b => b.BrandId == id);
+            if (DateTime.Now.Hour == 22)
+            {
+                return new ErrorDataResult<List<Car>>(Messages.MaintenanceTime);
+            }
+            return new SuccessDataResult<List<Car>>(_CarDal.GetAll(), Messages.ProductListed);
         }
 
-        public List<Car> GetByDailyPrice(decimal min, decimal max)
+       
+
+        public IDataResult<List<Car>> GetByDailyPrice(decimal min, decimal max)
         {
-            return _CarDal.GetAll(c => c.DailyPrice >= min && c.DailyPrice <= max);
+            return new SuccessDataResult<List<Car>>( _CarDal.GetAll(c => c.DailyPrice >= min && c.DailyPrice <= max));
 
         }
 
-        public List<CarDetailDto> GetCarDetails()
+        public IDataResult<Car> GetById(int carId)
         {
-            return _CarDal.GetCarDetails();
+            return new SuccessDataResult<Car>(_CarDal.Get(c => c.CarId == carId));
         }
+
+        public IDataResult<List<CarDetailDto>> GetCarDetails()
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_CarDal.GetCarDetails());
+        }
+
+        
+
+        IDataResult<Car> ICarService.GetAllByBrandId(int id)
+        {
+            return new SuccessDataResult<Car>(_CarDal.Get(c => c.CarId == id));
+        }
+
+        
+
+      
     }
 }
