@@ -40,6 +40,8 @@ namespace WebAPI
             services.AddSingleton<IRantelDal, EfrantelDal>();
             services.AddSingleton<ICustomerService, CustomerManager>();
             services.AddSingleton<ICustomerDal, EfCustomerDal>();
+            services.AddSingleton<ICarImageService, CarImageManager>();
+            services.AddSingleton<ICarImageDal, EfCarImageDal>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
