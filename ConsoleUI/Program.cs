@@ -1,4 +1,5 @@
-﻿using Business.Concrete;
+﻿using Business.Abstract;
+using Business.Concrete;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 using System;
@@ -9,7 +10,7 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            CarManager carManager = new CarManager(new EfCarDal());
+            /*CarManager carManager = new CarManager(new EfCarDal(), new BrandManager());
             var result = carManager.GetCarDetails();
             if (result.Success==true)
             {
@@ -22,7 +23,7 @@ namespace ConsoleUI
             else
             {
                 Console.WriteLine(result.Message);
-            }
+            }*/
            
         }
     }

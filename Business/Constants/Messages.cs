@@ -17,5 +17,8 @@ namespace Business.Constants
         public static string PasswordError = "Parola Hatası";
         public static string SuccessfulLogin = "Başarılı giriş";
         public static string AccessTokenCreated = "Token oluşturuldu";
+        public static string CarNameAlreadyExists = "Bu isimde zaten başka bir ürün var";
+        public static string CarCountOfCategoryError = "Bir kategoride en fazla 10 ürün olabilir.";
+        public static string BrandLimitExceded = "Marka limiti aşıldığı için yeni ürün eklenemiyor";
     }
 }
